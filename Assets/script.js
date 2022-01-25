@@ -22,8 +22,11 @@ var question3 = document.getElementById("question3");
 var question4 = document.getElementById("question4");
 var question5 = document.getElementById("question5");
 var sb = document.getElementById("scoreboard");
+var scoreSubmit = document.getElementById("scoreSubmit")
 var choiceArray = ["","","","blue","orange","lime","","","2022","","","","","","denver","","","","","orange"];
 var timeLeft = 30;
+var scoreForm = document.getElementById("scoreForm")
+scoreForm.type = "text";
 // functions 
 
 question1.addEventListener("submit", nq1);
@@ -31,6 +34,7 @@ question2.addEventListener("submit", nq2);
 question3.addEventListener("submit", nq3);
 question4.addEventListener("submit", nq4);
 question5.addEventListener("submit", nq5);
+scoreSubmit.addEventListener("submit",saveScore)
 
 
 // initialize function
@@ -41,7 +45,7 @@ function init (){
     question3.style.visibility = "hidden";
     question4.style.visibility = "hidden";
     question5.style.visibility = "hidden";
-    sb.style.visibility = "hidden";
+    sb.style.visibility= "hidden";
     
 }
 
@@ -50,6 +54,7 @@ function init (){
 function nq1 (event){
     question1.style.visibility = "hidden";
     question2.style.visibility = "visible";
+    scoreForm.type = "text";
    event.preventDefault();
   //  alert(question1[3].value)
   answer();
@@ -58,6 +63,7 @@ function nq1 (event){
 function nq2 (event){
     question2.style.visibility = "hidden";
     question3.style.visibility = "visible";
+    scoreForm.type = "text";
     event.preventDefault();
     answer();
 }
@@ -65,6 +71,7 @@ function nq2 (event){
 function nq3 (event){
     question3.style.visibility = "hidden";
     question4.style.visibility = "visible";
+    scoreForm.type = "text";
     event.preventDefault();
     answer();
 }
@@ -72,6 +79,7 @@ function nq3 (event){
 function nq4 (event){
     question4.style.visibility = "hidden";
     question5.style.visibility = "visible";
+    scoreForm.type = "text";
     event.preventDefault();
     answer();
 }
@@ -79,26 +87,28 @@ function nq4 (event){
 function nq5 (event){
   event.preventDefault();
   answer();
-  question5.style.visibility = "hidden";
   scoreboard();
+  question5.style.visibility = "hidden";
 }
 
 // answer function 
 
 function answer(choice){
-  var answer = document.getElementsByTagName("input");
+  var answer = document.getElementsByClassName("options");
 
   for(i = 0; i < answer.length; i++){
     if (answer[i].type="radio"){
 
       if(answer[i].checked){
           a = answer[i].value;
+          console.log(a);
           // alert(a);
           // x = i;
           // alert(x);
           if (a !== choiceArray[i]){
             // console.log(timeLeft);
-            timeLeft -= 5;
+            console.log("wrong")
+            timeLeft -= 2;
             // console.log(timeLeft);
           }
       }
@@ -138,9 +148,12 @@ function timerStart() {
   // scorboard function 
 
   function scoreboard (){
-    sb.style.visibility = "visible";
-    document.querySelector("p").textContent = "Enter your initials"
-    // console.log("is this working?")
+    document.getElementById("initials").textContent = "Enter your initials"
+    var timeScore = timeLeft;
+    document.getElementById("time").textContent = "Time Left: " + timeScore;
+   timerEl.style.visibility = "hidden"
+   timerEl.textContent = "";
+   sb.style.visibility = "visible";
   }
 
 
@@ -150,6 +163,13 @@ startGame = button.addEventListener("click", function () {
     quizStart ();
   });
   
+
+
+ // saves score to local storage
+ 
+ function saveScore(){
+   
+ }
 
 // calls the page init function 
 
