@@ -21,8 +21,9 @@ var question2 = document.getElementById("question2");
 var question3 = document.getElementById("question3");
 var question4 = document.getElementById("question4");
 var question5 = document.getElementById("question5");
+var sb = document.getElementById("scoreboard");
 var choiceArray = ["","","","blue","orange","lime","","","2022","","","","","","denver","","","","","orange"];
-
+var timeLeft = 30;
 // functions 
 
 question1.addEventListener("submit", nq1);
@@ -40,6 +41,7 @@ function init (){
     question3.style.visibility = "hidden";
     question4.style.visibility = "hidden";
     question5.style.visibility = "hidden";
+    sb.style.visibility = "hidden";
     
 }
 
@@ -77,6 +79,8 @@ function nq4 (event){
 function nq5 (event){
   event.preventDefault();
   answer();
+  question5.style.visibility = "hidden";
+  scoreboard();
 }
 
 // answer function 
@@ -93,13 +97,10 @@ function answer(choice){
           // x = i;
           // alert(x);
           if (a !== choiceArray[i]){
-            choice = "wrong";
+            // console.log(timeLeft);
+            timeLeft -= 5;
+            // console.log(timeLeft);
           }
-          else {
-            choice = "correct"
-          }
-
-        
       }
     }
   }
@@ -116,8 +117,7 @@ function quizStart () {
 
 
 // timer function
-function timerStart(timeLeft) {
-    timeLeft = 30;
+function timerStart() {
     button.style.visibility = "hidden";
 
   
@@ -125,16 +125,11 @@ function timerStart(timeLeft) {
       if (timeLeft >= 1) {
         timerEl.textContent = timeLeft + " Seconds Left";
         timeLeft--;
-        console.log(choice);
-      } else if (timeLeft >= 1 && choice === "wrong"){
-        timerEl.textContent = timeLeft + " Seconds Left";
-        console.log(choice);
-        timeleft = timeLeft - 15;
       }
       else {
         timerEl.textContent = "";
         clearInterval(timeInterval);
-        scoreboard()
+        scoreboard();
       }
     }, 1000);
   }
@@ -143,11 +138,10 @@ function timerStart(timeLeft) {
   // scorboard function 
 
   function scoreboard (){
-
+    sb.style.visibility = "visible";
+    document.querySelector("p").textContent = "Enter your initials"
+    // console.log("is this working?")
   }
-
-//buttons 
-
 
 
 // start game button
