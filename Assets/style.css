@@ -1,0 +1,47 @@
+
+
+
+
+
+
+header{
+    line-height: 90px;
+    background-color:#275861 ;
+    font-size: 50px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+
+
+
+.content {
+    align-content: center;
+    font-family: 'Mochiy Pop P One', sans-serif;
+    background-color:#A1DBE6;
+    margin: 0;
+}
+
+.quiz {
+    padding: 0px 0px 0px 44%;
+}
+
+#startGame {
+    padding: 5px;
+    text-align: center;
+    margin: 37px 12px 15px 118px;
+    background-color: #445D61;
+    color: white;
+}
+
+#scoreboardButton {
+    background-color: #445D61;
+    color: white;
+}
+
+.buttonStyle{
+    background-color: #445D61;
+    color: white;
+}
