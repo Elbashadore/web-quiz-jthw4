@@ -22,11 +22,14 @@ var question3 = document.getElementById("question3");
 var question4 = document.getElementById("question4");
 var question5 = document.getElementById("question5");
 var sb = document.getElementById("scoreboard");
-var scoreSubmit = document.getElementById("scoreSubmit")
+var scoreSubmit = document.getElementById("scoreboard")
 var choiceArray = ["","","","blue","orange","lime","","","2022","","","","","","denver","","","","","orange"];
 var timeLeft = 30;
 var scoreForm = document.getElementById("scoreForm")
 scoreForm.type = "text";
+var lb = document.getElementById("leaderBoard");
+var timeInterval = time;
+var finish = "false";
 // functions 
 
 question1.addEventListener("submit", nq1);
@@ -46,6 +49,7 @@ function init (){
     question4.style.visibility = "hidden";
     question5.style.visibility = "hidden";
     sb.style.visibility= "hidden";
+    lb.style.visibility= "hidden"
     
 }
 
@@ -88,9 +92,42 @@ function nq5 (event){
   event.preventDefault();
   answer();
   scoreboard();
+  clearInterval(time);
+  finish = "true"
   question5.style.visibility = "hidden";
 }
 
+  // scorboard function 
+
+  function scoreboard (event){
+    var prevScore = localStorage.getItem("score");
+    document.getElementById("prevScore").textContent = "Past Score: " + prevScore
+    document.getElementById("initials").textContent = "Enter your initials"
+    var timeScore = timeLeft;
+    document.getElementById("time").textContent = "Time Left: " + timeScore;
+   timerEl.style.visibility = "hidden"
+   timerEl.textContent = "";
+   sb.style.visibility = "visible";
+  }
+
+
+  //  saves score to local storage
+
+  function saveScore(event){
+    event.preventDefault();
+    var timeScore = timeLeft
+   lb.style.visibility = "visible";
+   sb.style.visibility = "hidden"
+  var name = document.getElementById("score").value;
+  console.log(name)
+  var score = name + "" + timeScore;
+  localStorage.setItem("score",score);
+
+  var highScore = localStorage.getItem("score");
+  document.getElementById("highScore").textContent = "New Score: " + highScore;
+
+
+ }
 // answer function 
 
 function answer(choice){
@@ -107,7 +144,6 @@ function answer(choice){
           // alert(x);
           if (a !== choiceArray[i]){
             // console.log(timeLeft);
-            console.log("wrong")
             timeLeft -= 2;
             // console.log(timeLeft);
           }
@@ -137,24 +173,23 @@ function timerStart() {
         timeLeft--;
       }
       else {
-        timerEl.textContent = "";
-        clearInterval(timeInterval);
-        scoreboard();
+        if (finish === "false"){
+          timerEl.textContent = "";
+          clearInterval(timeInterval);
+          scoreboard();
+          question1.style.visibility="hidden";
+        }
+        else {
+          timerEl.textContent = "";
+          clearInterval(timeInterval);
+        }
       }
+
     }, 1000);
   }
 
 
-  // scorboard function 
 
-  function scoreboard (){
-    document.getElementById("initials").textContent = "Enter your initials"
-    var timeScore = timeLeft;
-    document.getElementById("time").textContent = "Time Left: " + timeScore;
-   timerEl.style.visibility = "hidden"
-   timerEl.textContent = "";
-   sb.style.visibility = "visible";
-  }
 
 
 // start game button
@@ -164,12 +199,6 @@ startGame = button.addEventListener("click", function () {
   });
   
 
-
- // saves score to local storage
- 
- function saveScore(){
-   
- }
 
 // calls the page init function 
 
